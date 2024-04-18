@@ -1,0 +1,112 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<nav class="mobile-bottom-nav">
+  <div class="mobile-bottom-nav__item mobile-bottom-nav__item--active">
+		<div class="mobile-bottom-nav__item-content">
+          <a href="#" onclick="goBackTo()">
+			<span class="material-symbols-outlined">arrow_back_ios</span>
+          </a>
+		</div>		
+	</div>
+	<div class="mobile-bottom-nav__item mobile-bottom-nav__item--active">
+		<div class="mobile-bottom-nav__item-content">
+          <a href="/">
+			<span class="material-symbols-outlined">home</span>
+          </a>
+		</div>		
+	</div>
+	<div class="mobile-bottom-nav__item">		
+		<div class="mobile-bottom-nav__item-content">
+          <a href="/cart">
+			<span class="material-symbols-outlined">shopping_bag</span>
+          </a>
+          
+		</div>
+	</div>
+	<div class="mobile-bottom-nav__item">
+		<div class="mobile-bottom-nav__item-content">
+          <a href="/pages/wishlist">
+			<span class="material-symbols-outlined">favorite</span>
+          </a>
+		</div>		
+	</div>
+	
+	<div class="mobile-bottom-nav__item">
+		<div class="mobile-bottom-nav__item-content">
+          <a href="/account/login">
+			<span class="material-symbols-outlined">person</span>
+          </a>
+		</div>		
+	</div>
+</nav>
+<style>
+  {% unless section.settings.hide_bottom_bar_desktop %}
+    @media(min-width: 750px){
+      .mobile-bottom-nav {
+         display:none !important;
+        }
+    }
+    {% endunless %}
+  .mobile-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  will-change: transform;
+  transform: translateZ(0);
+  display: flex;
+  height: 50px;
+  box-shadow: 0 -2px 5px -2px #333;
+  background-color: #fff;
+}
+.mobile-bottom-nav__item {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.mobile-bottom-nav__item--active {
+  color: #E49A4F;
+}
+.mobile-bottom-nav__item-content {
+  display: flex;
+  flex-direction: column;
+}
+  .material-symbols-outlined{
+    color:#000;
+    font-weight: 300;
+  }
+</style>
+<script>
+  var navItems = document.querySelectorAll(".mobile-bottom-nav__item");
+  navItems.forEach(function(e, i) {
+      e.addEventListener("click", function(e) {
+          navItems.forEach(function(e2, i2) {
+              e2.classList.remove("mobile-bottom-nav__item--active");
+          })
+          this.classList.add("mobile-bottom-nav__item--active");
+      });
+  });
+  function goBackTo() {history.go(-1);}
+</script>
+{% schema %}
+  {
+    "name": "Bottom Bar",
+    "settings": [
+      {
+      "type": "checkbox",
+      "id": "show_bottom_bar",
+      "default": true,
+      "label": "Show bottom bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_bottom_bar_desktop",
+      "default": true,
+      "label": "Hide on Desktop"
+    }
+    ]
+  }
+{% endschema %}
